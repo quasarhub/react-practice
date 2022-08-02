@@ -25,6 +25,24 @@ export default class App extends Component {
     };
   };
 
+  todoData = [
+    {
+      id: '1',
+      title: '운동하기',
+      completed: false
+    },
+    {
+      id: '2',
+      title: '공부하기',
+      completed: false
+    },
+    {
+      id: '3',
+      title: '밥먹기',
+      completed: false
+    }
+  ];
+
   // render라는 메서드는 화면을 그려준다.
   render() {
     return (
@@ -34,20 +52,14 @@ export default class App extends Component {
             <h1>오늘의 할 일</h1>
           </div>
 
-          <div style={this.getStyle()}>
-            <input type="checkbox" defaultChecked={false} /> 운동하기
-            <button style={this.btnStyle}>delete</button>
-          </div>
-
-          <div style={this.getStyle()}>
-            <input type="checkbox" defaultChecked={false} /> 공부하기
-            <button style={this.btnStyle}>delete</button>
-          </div>
-
-          <div style={this.getStyle()}>
-            <input type="checkbox" defaultChecked={false} /> 밥먹기
-            <button style={this.btnStyle}>delete</button>
-          </div>
+          {/* JSX안의 JS 코드는 {} 로 감싼다. */}
+          {this.todoData.map((data) => (
+            // return 안에 JSX이 다시 들어간다.
+            <div style={this.getStyle()}>
+              <input type="checkbox" defaultChecked={false} /> {data.title}
+              <button style={this.btnStyle}>delete</button>
+            </div>
+          ))}
         </div>
       </div>
     );
