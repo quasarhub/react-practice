@@ -8,11 +8,47 @@ import './App.css';
 // 외부에서 사용이 되려면 반드시 export 되어야 한다.
 // 그래야 class를 사용할 수 있다.
 export default class App extends Component {
+  btnStyle = {
+    color: 'red',
+    border: 'none',
+    padding: '5px 9px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    float: 'right'
+  };
+
+  getStyle = () => {
+    return {
+      padding: '20px',
+      borderBottom: '1px #ccc dotted',
+      textDecoration: 'none'
+    };
+  };
+
   // render라는 메서드는 화면을 그려준다.
   render() {
     return (
       <div className="container">
-        <div className="todoBlock">오늘의 할 일</div>
+        <div className="todoBlock">
+          <div>
+            <h1>오늘의 할 일</h1>
+          </div>
+
+          <div style={this.getStyle()}>
+            <input type="checkbox" defaultChecked={false} /> 운동하기
+            <button style={this.btnStyle}>delete</button>
+          </div>
+
+          <div style={this.getStyle()}>
+            <input type="checkbox" defaultChecked={false} /> 공부하기
+            <button style={this.btnStyle}>delete</button>
+          </div>
+
+          <div style={this.getStyle()}>
+            <input type="checkbox" defaultChecked={false} /> 밥먹기
+            <button style={this.btnStyle}>delete</button>
+          </div>
+        </div>
       </div>
     );
   }
