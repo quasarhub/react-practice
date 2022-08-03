@@ -1,5 +1,7 @@
 import React from 'react';
 
+// 구조분해할당을 이용
+// {todoData, setTodoData} = {todoData: {todoData}, setTodoData: {setTodoData}}
 export default function Lists({ todoData, setTodoData }) {
   const btnStyle = {
     color: 'red',
