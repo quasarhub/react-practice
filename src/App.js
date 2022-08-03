@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import Lists from './components/Lists';
 
 export default function App() {
   // todoData의 초기 값을 setTodoData로 Setting 한다.
@@ -12,28 +13,6 @@ export default function App() {
   ]);
 
   const [value, setValue] = useState('');
-
-  const btnStyle = {
-    color: 'red',
-    border: 'none',
-    padding: '5px 9px',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    float: 'right'
-  };
-
-  const getStyle = (completed) => {
-    return {
-      padding: '20px',
-      borderBottom: '1px #ccc dotted',
-      textDecoration: completed ? 'line-through' : 'none'
-    };
-  };
-
-  const deleteClick = (id) => {
-    const newTodoData = todoData.filter((data) => data.id !== id);
-    setTodoData(newTodoData);
-  };
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -52,16 +31,6 @@ export default function App() {
     setValue('');
   };
 
-  const handleCompleteChange = (id) => {
-    let newTodoData = todoData.map((data) => {
-      if (data.id === id) {
-        data.completed = !data.completed;
-      }
-      return data;
-    });
-    setTodoData(newTodoData);
-  };
-
   return (
     <div className="container">
       <div className="todoBlock">
@@ -69,22 +38,8 @@ export default function App() {
           <h1>오늘의 할 일</h1>
         </div>
 
-        {/* JSX안의 JS 코드는 {} 로 감싼다. */}
-        {todoData.map((data) => (
-          // return 안에 JSX이 다시 들어간다.
-          <div style={getStyle(data.completed)} key={data.id}>
-            <input
-              type="checkbox"
-              defaultChecked={false}
-              onChange={() => handleCompleteChange(data.id)}
-            />
+        <Lists todoData={todoData} setTodoData={setTodoData} />
 
-            {data.title}
-            <button style={btnStyle} onClick={() => deleteClick(data.id)}>
-              delete
-            </button>
-          </div>
-        ))}
         <form style={{ display: 'flex' }} onSubmit={handleSubmit}>
           <input
             type="text"
