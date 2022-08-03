@@ -1,12 +1,3 @@
-.container {
-  margin: auto; /* 가운데 정렬 */
-  max-width: 600px;
-}
-
-.todoBlock {
-  padding: 30px;
-  margin-top: 50px; /* 위쪽 여백 */
-  background-color: rgb(189, 167, 211);
-  border-radius: 10px;
-  box-shadow: -9px 17px 13px rgb(0, 0, 0); /* 왼쪽 아래 얼만큼퍼질것인지 */
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
