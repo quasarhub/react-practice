@@ -1,25 +1,10 @@
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import List from './List';
 
 // 구조분해할당을 이용
 export default function Lists({ todoData, setTodoData }) {
-  const deleteClick = (id) => {
-    const newTodoData = todoData.filter((data) => data.id !== id);
-    setTodoData(newTodoData);
-  };
-
-  const handleCompleteChange = (id) => {
-    // id에 대해 todoData의 completed값을 변경시켜야 해요!
-    let newTodoData = todoData.map((data) => {
-      if (data.id === id) {
-        data.completed = !data.completed;
-      }
-      return data;
-    });
-
-    setTodoData(newTodoData);
-  };
-
+  console.log('Lists component 실행!');
   const handleDrop = (e) => {
     // e: event 객체, event에 대한 세부정보를 가지고 있어요!
     // e.source : drag한 객체, e.destination : drop한 객체
@@ -49,38 +34,17 @@ export default function Lists({ todoData, setTodoData }) {
                   index={index}
                 >
                   {(provided, snapshot) => (
-                    <div
-                      key={data.id}
-                      {...provided.draggableProps}
-                      ref={provided.innerRef}
-                      {...provided.dragHandleProps}
-                    >
-                      <div
-                        className={` ${
-                          snapshot.isDragging ? 'bg-gray-500' : 'bg-gray-100'
-                        } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 border rounded`}
-                      >
-                        <div className="items-center">
-                          <input
-                            type="checkbox"
-                            defaultChecked={false}
-                            onChange={() => handleCompleteChange(data.id)}
-                          />{' '}
-                          <span
-                            className={
-                              data.completed ? 'line-through' : undefined
-                            }
-                          >
-                            {data.title}
-                          </span>
-                        </div>
-                        <div className="items-center">
-                          <button onClick={() => deleteClick(data.id)}>
-                            delete
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    // Component가 위치해야한다.
+                    // 반복하면서 Component를 찍으세요.
+                    <List
+                      id={data.id}
+                      title={data.title}
+                      completed={data.completed}
+                      todoData={todoData}
+                      setTodoData={setTodoData}
+                      provided={provided}
+                      snapshot={snapshot}
+                    />
                   )}
                 </Draggable>
               ))}
