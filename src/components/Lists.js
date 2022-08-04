@@ -2,20 +2,15 @@ import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import List from './List';
 
-// 구조분해할당을 이용
-export default function Lists({ todoData, setTodoData }) {
+// rfc에서 rafc로 바꾼이유는 React Memo를 이용하기 위해서이다.
+const Lists = React.memo(({ deleteClick, todoData, setTodoData }) => {
   console.log('Lists component 실행!');
   const handleDrop = (e) => {
-    // e: event 객체, event에 대한 세부정보를 가지고 있어요!
-    // e.source : drag한 객체, e.destination : drop한 객체
     if (!e.destination) return;
 
     const newTodoData = todoData;
-
-    // drag되는 놈을 삭제
     const [reorder] = newTodoData.splice(e.source.index, 1);
 
-    // drop되는 위치에 삽입
     newTodoData.splice(e.destination.index, 0, reorder);
 
     setTodoData(newTodoData);
@@ -37,6 +32,7 @@ export default function Lists({ todoData, setTodoData }) {
                     // Component가 위치해야한다.
                     // 반복하면서 Component를 찍으세요.
                     <List
+                      deleteClick={deleteClick}
                       id={data.id}
                       title={data.title}
                       completed={data.completed}
@@ -55,4 +51,10 @@ export default function Lists({ todoData, setTodoData }) {
       </DragDropContext>
     </div>
   );
-}
+});
+
+// Lists를 외부에서 사용할 수 있도록 추가.
+// Arrow function이 아니라 그냥 function을 이용할 때는
+// export default function Lists() { } 와 같이 쓸 수 있었으나
+// Arrow function에서는 아래와 같이 명시해두어야 한다.
+export default Lists;
